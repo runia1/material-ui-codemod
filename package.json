@@ -1,0 +1,15 @@
+{
+  "name": "@mrunia/material-ui-codemod",
+  "version": "0.0.0",
+  "description": "A codemod for converting 1.0.0-beta material-ui to 3.9.0 @material-ui",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "runia1",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.4.0",
+    "jscodeshift": "^0.6.3"
+  }
+}
