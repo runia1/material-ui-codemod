@@ -2,14 +2,45 @@
   "name": "@mrunia/material-ui-codemod",
   "version": "0.0.0",
   "description": "A codemod for converting 1.0.0-beta material-ui to 3.9.0 @material-ui",
-  "main": "./dist/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "commit": "git-cz",
+    "prettier": "prettier --write \"src/{,!(__testfixtures__)/**/}*.{js,json,md}\""
   },
   "author": "runia1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:runia1/material-ui-codemod.git"
+  },
+  "bugs": {
+    "url": "https://github.com:runia1/material-ui-codemod/issues"
+  },
   "license": "MIT",
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/github": "^5.2.10",
+    "@semantic-release/npm": "^5.1.4",
+    "commitizen": "^3.0.7",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^1.3.1",
     "jest": "^24.4.0",
-    "jscodeshift": "^0.6.3"
+    "jscodeshift": "^0.6.3",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "semantic-release": "16.0.0-beta.18"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn run test"
+    }
+  },
+  "lint-staged": {
+    "src/{,!(__testfixtures__)/**/}*.{js,json,md}": ["prettier --write", "git add"]
   }
 }

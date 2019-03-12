@@ -1,9 +1,9 @@
 module.exports = function transformer(fileInfo, api) {
     const j = api.jscodeshift;
     const root = j(fileInfo.source);
-    
-    const targetModule = '@material-ui/core';
-    
+
+    const targetModule = "@material-ui/core";
+
     // find all the import declarations
     root.find(j.ImportDeclaration).forEach(path => {
         const entryModule = path.value.source.value;
@@ -21,7 +21,7 @@ module.exports = function transformer(fileInfo, api) {
             // create a new import declaration
             const importStatement = j.importDeclaration(
                 [j.importDefaultSpecifier(j.identifier(localName))],
-                j.literal(`${targetModule}/${importedName}`),
+                j.literal(`${targetModule}/${importedName}`)
             );
 
             // Add the new import declaration before this one
@@ -34,7 +34,7 @@ module.exports = function transformer(fileInfo, api) {
 
     // format the new imports with double quotes
     return root.toSource({
-        quote: 'double',
-        trailingComma: true,
+        quote: "double",
+        trailingComma: false
     });
 };
