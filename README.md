@@ -1,7 +1,6 @@
 ## Installation
 
 ```
-npm install @mrunia/material-ui-codemod
 npm install -g jscodeshift
 ```
 
@@ -11,5 +10,5 @@ npm install -g jscodeshift
 
 #### Example
 
-`jscodeshift -t ./src/imports.js ~/code/my-app/src`
+`jscodeshift -t https://raw.githubusercontent.com/runia1/material-ui-codemod/master/src/imports.js ~/code/my-app/src`
 

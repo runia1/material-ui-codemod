@@ -9,7 +9,7 @@ module.exports = function transformer(fileInfo, api) {
         const entryModule = path.value.source.value;
 
         // Remove non-Material-UI imports
-        if (entryModule !== "material-ui") {
+        if (entryModule !== "material-ui" && entryModule.indexOf("material-ui/") !== 0) {
             return;
         }
 
@@ -19,10 +19,32 @@ module.exports = function transformer(fileInfo, api) {
             const importedName = specifier.imported.name;
 
             // create a new import declaration
-            const importStatement = j.importDeclaration(
-                [j.importDefaultSpecifier(j.identifier(localName))],
-                j.literal(`${targetModule}/${importedName}`)
-            );
+            let importStatement = null;
+            switch (importedName) {
+                case "withStyles":
+                    importStatement = j.importDeclaration(
+                        [j.importSpecifier(j.identifier(importedName))],
+                        j.literal(`${targetModule}/styles`)
+                    );
+                    break;
+                case "MuiThemeProvider":
+                    importStatement = j.importDeclaration(
+                        [j.importDefaultSpecifier(j.identifier(localName))],
+                        j.literal(`${targetModule}/styles/${importedName}`)
+                    );
+                    break;
+                case "ModalManager":
+                    importStatement = j.importDeclaration(
+                        [j.importSpecifier(j.identifier(importedName))],
+                        j.literal(`${targetModule}/Modal`)
+                    );
+                    break;
+                default:
+                    importStatement = j.importDeclaration(
+                        [j.importDefaultSpecifier(j.identifier(localName))],
+                        j.literal(`${targetModule}/${importedName}`)
+                    );
+            }
 
             // Add the new import declaration before this one
             j(path).insertBefore(importStatement);
@@ -33,8 +55,10 @@ module.exports = function transformer(fileInfo, api) {
     });
 
     // format the new imports with double quotes
-    return root.toSource({
+    const x = root.toSource({
         quote: "double",
         trailingComma: false
     });
+
+    return x;
 };
