@@ -1,3 +1,5 @@
+const { changePropName, buildImportIdentifier } = require("./utils");
+
 module.exports = function transformer(fileInfo, api) {
     const j = api.jscodeshift;
     const root = j(fileInfo.source);
@@ -70,6 +72,16 @@ module.exports = function transformer(fileInfo, api) {
         path.prune();
     });
 
+    // In MUI 3 they changed the prop name from "onRequestClose" to "onClose" for the following components,
+    // they all use Modal component under the covers
+    changePropName(
+        root,
+        j,
+        ["Dialog", "Drawer", "Menu", "Modal", "Popover", "SwipeableDrawer", "Tooltip"],
+        "onRequestClose",
+        "onClose"
+    );
+
     // find all the import declarations for material-ui-icons
     root.find(j.ImportDeclaration).forEach(path => {
         const targetModule = "@material-ui/icons";
@@ -113,9 +125,3 @@ module.exports = function transformer(fileInfo, api) {
         trailingComma: false
     });
 };
-
-function buildImportIdentifier(importedName, localName) {
-    return localName && localName !== importedName
-        ? `${importedName} as ${localName}`
-        : importedName;
-}
