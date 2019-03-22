@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "commit": "git-cz",
-    "prettier": "prettier --write \"src/{,!(__testfixtures__)/**/}*.{js,json,md}\""
+    "prettier": "prettier --write \"src/**/*.{js,json,md}\""
   },
   "author": "runia1",
   "repository": {
@@ -41,6 +41,6 @@
     }
   },
   "lint-staged": {
-    "src/{,!(__testfixtures__)/**/}*.{js,json,md}": ["prettier --write", "git add"]
+    "src/**/*.{js,json,md}": ["prettier --write", "git add"]
   }
 }
