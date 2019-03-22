@@ -2,6 +2,11 @@
   "name": "@mrunia/material-ui-codemod",
   "version": "0.0.0",
   "description": "A codemod for converting 1.0.0-beta material-ui to 3.9.0 @material-ui",
+  "main": "src/imports.js",
+  "files": [
+    "src",
+    "README.md"
+  ],
   "scripts": {
     "test": "jest",
     "commit": "git-cz",
