@@ -1,14 +1,22 @@
-## Installation
+## Setup & Run
 
 ```
 npm install -g jscodeshift
+npm install @mrunia/material-ui-codemod
+
+jscodeshift -t <codemod-script> <path>
 ```
 
-## Usage
+- Use the -d option for a dry-run and use -p to print the output for comparison
 
-`jscodeshift -t <path to transformer you'd like to run> <path to src code you'd like to transform>`
 
-#### Example
+## Included Scripts
 
-`jscodeshift -t https://raw.githubusercontent.com/runia1/material-ui-codemod/master/src/imports.js ~/code/my-app/src`
+- #### imports.js
+ 
+    - Updates import statements `from "material-ui"` to from `"@materilal-ui/core"`
+    - Updates import statements `from "material-ui-icons"` to from `"@materilal-ui/icons"`
+    - Updates prop names for components which used to use `onRequestClose` to `onClose`
+        
+        - For Example: Popover, Menu, Modal, Dialog, Drawer, etc,.
 
