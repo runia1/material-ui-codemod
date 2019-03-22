@@ -12,7 +12,7 @@ jscodeshift -t <codemod-script> <path>
 
 ## Included Scripts
 
-- #### imports.js
+- ### imports.js
  
     - Updates import statements `from "material-ui"` to from `"@materilal-ui/core"`
     - Updates import statements `from "material-ui-icons"` to from `"@materilal-ui/icons"`
